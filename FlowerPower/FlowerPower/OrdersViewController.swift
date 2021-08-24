@@ -69,3 +69,41 @@ extension OrdersViewController: UITableViewDataSource {
     }
 }
 
+extension OrdersViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if viewModel.doesErrorExists {
+            fetchData()
+        } else {
+            guard let order = viewModel.getOrder(for: indexPath.row),
+                  let customer = viewModel.getCustomer(for: order) else {
+                return
+            }
+            let viewModelToSend = OrderDetailsViewModel(order: order, customer: customer)
+            performSegue(withIdentifier: .goToOrderDetail, sender: viewModelToSend)
+        }
+    }
+}
+
+extension OrdersViewController: SegueHandlerType {
+    enum SegueIdentifier: String {
+        case goToOrderDetail
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        switch segueIdentifier(identifier) {
+            case .goToOrderDetail:
+                return sender is OrderDetailsViewModel
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segueIdentifier(segue.identifier) {
+            case .goToOrderDetail:
+                guard let detailsViewController = segue.destination as? OrderDetailViewController,
+                      let detailsViewModel = sender as? OrderDetailsViewModel else {
+                    return
+                }
+                detailsViewController.viewModel = detailsViewModel
+        }
+    }
+}
