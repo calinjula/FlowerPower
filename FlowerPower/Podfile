@@ -9,4 +9,5 @@ target 'FlowerPower' do
     pod "PromiseKit", "~> 6.8"
     pod 'AlamofireImage', '~> 4.1'
     pod "PromiseKit/CoreLocation", "~> 6.0"
+    pod 'lottie-ios'
 end

@@ -25,14 +25,16 @@ class OrderDetailViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var detailsTableView: UITableView!
+    @IBOutlet private weak var detailsTableView: UITableView!
     
-    var viewModel: OrderDetailsViewModel!
+    var viewModel: OrderDetailsViewModelType!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.getCurrentLocation().done { [weak self] in
             self?.detailsTableView.reloadRows(at: [IndexPath(row: TableViewRow.customerLocation.rawValue, section: 0)], with: .automatic)
+        }.catch { error in
+            print("Unable to get location with error: \(error)")
         }
     }
 }
@@ -55,15 +57,13 @@ extension OrderDetailViewController: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomerDetailsTableViewCell.reuseIdentifier) as? CustomerDetailsTableViewCell else {
                     return UITableViewCell()
                 }
-                cell.configureCell(name: viewModel.customerName,
-                                   price: viewModel.price,
-                                   order: viewModel.orderDescription)
+                cell.configureCell(viewModel: viewModel)
                 return cell
             case .customerLocation:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MapLocationTableViewCell.reuseIdentifier) as? MapLocationTableViewCell else {
                     return UITableViewCell()
                 }
-                cell.configureCell(location: viewModel.customerCoordinates, distance: viewModel.distanceToCustomer)
+                cell.configureCell(viewModel: viewModel)
                 cell.delegate = self
                 return cell
         }

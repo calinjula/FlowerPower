@@ -17,7 +17,7 @@ class ErrorTableViewCell: UITableViewCell {
         if let networkError = error as? NetworkingError {
             errorMessageLabel.text = networkError.errorMessage
         } else {
-            errorMessageLabel.text = "Ooops, there was a problem. Tap here or pull to try again."
+            errorMessageLabel.text = "error_pull_to_refresh".localized
         }
     }
 }

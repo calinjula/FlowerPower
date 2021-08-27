@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  FlowerPower
+
+  Created by Calin Jula on 27.08.2021.
+  
+ 
+*/
+
+"orders" = "Orders";
+"error" = "Error";
+"dismiss" = "Dismiss";
+
+"order_change_new" = "Revert to New";
+"order_change_pending" = "Mark as Pending";
+"order_change_delivered" = "Mark as Delivered";
+
+"network_error_malformed_url" = "Ooops, seems like there is a bug in our code! Please contact our support representatives.";
+"network_error_status_code" = "Ooops, our servers are not cooperating today. Tap here or pull to try again!";
+"network_error_order_update" = "Unable to update your order, please try again later!";
+
+"error_pull_to_refresh" = "Ooops, there was a problem. Tap here or pull to try again.";
+
+"customer_position" = "The customer is";
+"customer_distance" = "meters away";
+
+"name" = "Name";
+"order" = "Order";
+"price" = "Price";
+
+"customer_details" = "Customer Details";
+"get_directions" = "Get Directions";
+"delivery_address" = "Delivery Address";

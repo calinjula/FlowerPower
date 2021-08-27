@@ -11,6 +11,7 @@ class CustomerDetailsTableViewCell: UITableViewCell {
 
     static let reuseIdentifier = "CustomerDetailsTableViewCellId"
     
+    @IBOutlet private weak var customerDetailsLabel: UILabel!
     @IBOutlet private weak var customerNameDescriptionLabel: UILabel!
     @IBOutlet private weak var orderDescriptionLabel: UILabel!
     @IBOutlet private weak var priceDescriptionLabel: UILabel!
@@ -18,16 +19,17 @@ class CustomerDetailsTableViewCell: UITableViewCell {
     @IBOutlet private weak var orderValueLabel: UILabel!
     @IBOutlet private weak var priceValueLabel: UILabel!
     
-    func configureCell(name: String, price: String, order: String) {
+    func configureCell(viewModel: ClientDetailsViewModelType) {
         localizeText()
-        nameValueLabel.text = name
-        priceValueLabel.text = price
-        orderValueLabel.text = order
+        nameValueLabel.text = viewModel.customerName
+        priceValueLabel.text = viewModel.price
+        orderValueLabel.text = viewModel.orderDescription
     }
     
     private func localizeText() {
-        customerNameDescriptionLabel.text = "Name:"
-        orderDescriptionLabel.text = "Order:"
-        priceDescriptionLabel.text = "Price:"
+        customerNameDescriptionLabel.text = "\("name".localized):"
+        orderDescriptionLabel.text = "\("order".localized):"
+        priceDescriptionLabel.text = "\("price".localized):"
+        customerDetailsLabel.text = "customer_details".localized
     }
 }

@@ -52,7 +52,29 @@ class OrdersViewModel {
         return allOrders[safe: index]
     }
     
+    func getChangeStatus(for index: Int) -> [OrderStatus] {
+        guard let order = getOrder(for: index) else { return [] }
+        return OrderStatus.allCases.filter { $0 != order.status }
+    }
+    
     func getCustomer(for order: Order) -> Customer? {
         return allCustomers.first { $0.id == order.customerId }
+    }
+    
+    private func changeStatus(for order: Order, to newStatus: OrderStatus) -> Promise<Void> {
+        let updateOrderService = UpdateOrderService(networkRequestable: URLSessionNetworkRequestable())
+        return updateOrderService.update(order: order, newStatus: newStatus)
+    }
+    
+    func changeStatusWithRefresh(for order: Order, to newStatus: OrderStatus) -> Promise<Void> {
+        return changeStatus(for: order, to: newStatus).then { [weak self] _ -> Promise<Void> in
+            if self != nil {
+                return self!.fetchOrdersAndCustomers()
+            } else {
+                return Promise { resolver in
+                    resolver.fulfill(())
+                }
+            }
+        }
     }
 }

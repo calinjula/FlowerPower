@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum OrderStatus: String, Decodable {
+enum OrderStatus: String, Codable, CaseIterable {
     case new, pending, delivered
     
     var systemImageName: String {
@@ -15,6 +15,14 @@ enum OrderStatus: String, Decodable {
             case .pending: return "clock.arrow.2.circlepath"
             case .delivered: return "shippingbox.fill"
             case .new: return "envelope.open.fill"
+        }
+    }
+    
+    var actionText: String {
+        switch self {
+            case .new: return "order_change_new".localized
+            case .pending: return "order_change_pending".localized
+            case .delivered: return "order_change_delivered".localized
         }
     }
 }

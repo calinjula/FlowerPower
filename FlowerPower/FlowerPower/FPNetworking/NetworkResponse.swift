@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class NetworkResponse {
+class NetworkResponse {
     var responseData: Data?
     var httpStatus: Int?
     

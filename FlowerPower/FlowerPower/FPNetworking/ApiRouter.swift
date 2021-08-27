@@ -10,12 +10,15 @@ import Foundation
 enum ApiRouter {
     case getAllOrders
     case getAllCustomers
+    case updateOrder
     
     var httpMethod: HTTPMethod {
         switch self {
             case .getAllOrders,
                  .getAllCustomers:
-                return HTTPMethod.get
+                return .get
+            case .updateOrder:
+                return .post
         }
     }
     
@@ -25,6 +28,8 @@ enum ApiRouter {
                 return "/orders"
             case .getAllCustomers:
                 return "/customers"
+            case .updateOrder:
+                return "/order/update"
         }
     }
     

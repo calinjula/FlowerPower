@@ -7,6 +7,6 @@
 
 import PromiseKit
 
-public protocol NetworkRequestable {
+protocol NetworkRequestable {
     func perform(request: NetworkRequest) -> Promise<NetworkResponse>
 }

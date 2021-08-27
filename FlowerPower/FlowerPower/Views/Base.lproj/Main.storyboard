@@ -251,7 +251,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="deliveryAddressLabel" destination="LZ3-V5-U2G" id="AwY-uK-AKG"/>
                                             <outlet property="distanceLabel" destination="1k4-8W-XfU" id="KDw-0R-XF6"/>
+                                            <outlet property="getDirectionsButton" destination="Y7i-wg-3az" id="XrE-ch-Ecl"/>
                                             <outlet property="mapView" destination="W0p-hc-6AZ" id="hJj-Lr-RwY"/>
                                         </connections>
                                     </tableViewCell>
@@ -338,6 +340,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="customerDetailsLabel" destination="KFr-Tq-twt" id="akS-u3-xTk"/>
                                             <outlet property="customerNameDescriptionLabel" destination="Nwd-Qd-gUN" id="nlA-Pa-ULo"/>
                                             <outlet property="nameValueLabel" destination="hQQ-jg-2bP" id="OCh-N9-tde"/>
                                             <outlet property="orderDescriptionLabel" destination="JbK-Xz-PIK" id="4mr-9n-BuH"/>

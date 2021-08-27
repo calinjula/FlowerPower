@@ -11,23 +11,27 @@ enum NetworkingError: Error {
     case malformedUrl
     case wrongStatusCode
     case noDataReturned
+    case orderUpdateFailed
     
     var errorMessage: String {
         switch self {
             case .malformedUrl:
-                return "Ooops, seems like there is a bug in our code! Please contact our support representatives."
+                return "network_error_malformed_url".localized
             case .noDataReturned, .wrongStatusCode:
-                return "Ooops, our servers are not cooperating today. Tap here or pull to try again!"
+                return "network_error_status_code".localized
+            case .orderUpdateFailed:
+                return "network_error_order_update".localized
         }
     }
 }
 
-public class NetworkRequest {
+class NetworkRequest {
     var httpMethod: HTTPMethod
     var path: String
     var domain: String
+    var body: Encodable?
     
-    init(with httpMethod: HTTPMethod, path: String, domain: String) {
+    init(with httpMethod: HTTPMethod, path: String, domain: String, requestBody: Encodable? = nil) {
         self.httpMethod = httpMethod
         self.path = path
         self.domain = domain
@@ -45,6 +49,9 @@ extension NetworkRequest {
         }
         var request = URLRequest(url: composedUrl)
         request.httpMethod = httpMethod.rawValue
+        if let reqBody = body {
+            request.httpBody = try reqBody.jsonEncoded()
+        }
         return request
     }
 }
